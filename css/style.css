@@ -229,7 +229,7 @@ button, input, textarea, select { font: inherit; }
 
 .hero {
   position: relative;
-  min-height: 500px;
+  min-height: 400px;
   display: flex;
   align-items: center;
   overflow: hidden;
