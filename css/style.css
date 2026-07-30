@@ -701,3 +701,11 @@ p { margin-top: 0; }
     aspect-ratio: 1 / 1;
   }
 }
+.structure-photo {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  margin: 0 auto 32px;
+  object-fit: contain;
+}
