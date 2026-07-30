@@ -686,4 +686,18 @@ p { margin-top: 0; }
   object-fit: contain;
   border-radius: 50%;
 }
-
+.staff-photo {
+  display: block;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+}
+@media (max-width: 640px) {
+  .staff-photo {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+}
