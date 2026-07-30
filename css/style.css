@@ -357,26 +357,10 @@ p { margin-top: 0; }
   grid-template-columns: repeat(3, minmax(0,1fr));
   gap: 20px;
 }
-.structure-card {
-  position: relative;
-  min-height: 290px;
-  padding: 30px;
-  overflow: hidden;
-  background: var(--white);
-  border: 1px solid var(--stone-200);
-  color: inherit;
-  text-decoration: none;
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-}
 .structure-card:hover {
   transform: translateY(-5px);
   border-color: var(--gold-500);
   box-shadow: var(--shadow);
-}
-.structure-card.featured {
-  background: var(--navy-900);
-  border-color: var(--navy-900);
-  color: var(--white);
 }
 .structure-card.featured h3 { color: var(--white); }
 .structure-type {
@@ -390,15 +374,160 @@ p { margin-top: 0; }
 }
 .structure-card p { margin: 16px 0 0; color: #697177; }
 .structure-card.featured p { color: rgba(255,255,255,.73); }
-.placeholder-card { background: #f7f6f2; }
-.card-arrow {
-  position: absolute;
-  right: 24px;
-  bottom: 20px;
-  color: var(--gold-600);
-  font-size: 1.45rem;
+/* ==================================================
+   STRUCTURE CARDS
+   ================================================== */
+
+.structure-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
 }
 
+.structure-card {
+  position: relative;
+  min-height: 290px;
+  padding: 34px 30px 30px;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--university-red);
+  border: 1px solid var(--university-red);
+
+  color: var(--white);
+  text-decoration: none;
+
+  box-shadow: none;
+  overflow: hidden;
+
+  transition:
+    background-color var(--transition),
+    color var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition),
+    transform var(--transition);
+}
+
+.structure-card .structure-type {
+  display: block;
+  margin-bottom: 34px;
+
+  color: var(--gold-500);
+
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  transition: color var(--transition);
+}
+
+.structure-card h3 {
+  margin: 0 0 16px;
+
+  color: var(--white);
+
+  font-family: "Merriweather", Georgia, serif;
+  font-size: 1.35rem;
+  line-height: 1.35;
+
+  transition: color var(--transition);
+}
+
+.structure-card p {
+  margin: 0 0 36px;
+
+  color: rgba(255, 255, 255, 0.88);
+
+  font-size: 1rem;
+  line-height: 1.65;
+
+  transition: color var(--transition);
+}
+
+.structure-card .card-arrow {
+  position: absolute;
+  right: 26px;
+  bottom: 22px;
+
+  color: var(--gold-500);
+
+  font-size: 1.35rem;
+  line-height: 1;
+
+  transition:
+    color var(--transition),
+    transform var(--transition);
+}
+
+/* White inversion on hover and keyboard focus */
+
+.structure-card:hover,
+.structure-card:focus-visible {
+  background-color: var(--white);
+  border-color: var(--university-red);
+  color: var(--university-red);
+
+  box-shadow: var(--shadow);
+  transform: translateY(-4px);
+}
+
+.structure-card:hover .structure-type,
+.structure-card:focus-visible .structure-type {
+  color: var(--university-red);
+}
+
+.structure-card:hover h3,
+.structure-card:focus-visible h3 {
+  color: var(--university-red);
+}
+
+.structure-card:hover p,
+.structure-card:focus-visible p {
+  color: var(--ink);
+}
+
+.structure-card:hover .card-arrow,
+.structure-card:focus-visible .card-arrow {
+  color: var(--university-red);
+  transform: translate(4px, -4px);
+}
+
+/* Moment of clicking */
+
+.structure-card:active {
+  background-color: var(--cream-50);
+  transform: translateY(0);
+}
+
+/* Clear keyboard focus */
+
+.structure-card:focus-visible {
+  outline: 3px solid var(--university-blue);
+  outline-offset: 4px;
+}
+@media (max-width: 960px) {
+  .structure-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .structure-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .structure-card {
+    min-height: 250px;
+    padding: 28px 24px;
+  }
+
+  .structure-card .structure-type {
+    margin-bottom: 24px;
+  }
+}
 .heritage-banner {
   padding: 90px 0;
   color: var(--white);
