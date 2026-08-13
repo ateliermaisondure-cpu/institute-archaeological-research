@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -11,11 +12,11 @@
 
   <meta
     name="description"
-    content="About the Institute of Archaeological Research at Margulan University"
+    content="News, research updates, projects, events and publications from the Institute of Archaeological Research at Margulan University"
   >
 
   <title>
-    About the Institute | Institute of Archaeological Research
+    News | Institute of Archaeological Research
   </title>
 
   <link
@@ -44,10 +45,12 @@
     rel="stylesheet"
     href="css/style.css"
   >
+
 </head>
 
 
 <body>
+
 
   <a
     class="skip-link"
@@ -59,10 +62,12 @@
 
   <!-- ==================================================
        HEADER
-       Keep this section unchanged on all English pages
        ================================================== -->
 
   <header class="site-header">
+
+
+    <!-- UTILITY BAR -->
 
     <div class="utility-bar">
 
@@ -77,6 +82,7 @@
           Margulan University
         </a>
 
+
         <nav
           class="utility-nav"
           aria-label="Utility navigation"
@@ -85,6 +91,7 @@
           <a href="#contacts">
             Contacts
           </a>
+
 
           <div
             class="language-switcher"
@@ -107,7 +114,7 @@
 
             <a
               class="active"
-              href="about.html"
+              href="news.html"
               aria-current="page"
               aria-label="English language"
             >
@@ -122,6 +129,8 @@
 
     </div>
 
+
+    <!-- BRANDING -->
 
     <div class="branding-bar">
 
@@ -141,6 +150,7 @@
             >
 
           </div>
+
 
           <div class="brand-text">
 
@@ -179,6 +189,8 @@
     </div>
 
 
+    <!-- MAIN NAVIGATION -->
+
     <nav
       id="main-navigation"
       class="main-navigation"
@@ -195,17 +207,27 @@
             </a>
           </li>
 
+
           <li>
-            <a
-              class="active"
-              href="about.html"
-              aria-current="page"
-            >
+            <a href="about.html">
               About
             </a>
           </li>
 
-         <li class="has-submenu">
+
+          <li>
+            <a
+              class="active"
+              href="news.html"
+              aria-current="page"
+            >
+              News
+            </a>
+          </li>
+
+
+          <li class="has-submenu">
+
             <button
               class="submenu-toggle"
               type="button"
@@ -215,19 +237,23 @@
             </button>
 
             <ul class="submenu">
-               <li>
+
+              <li>
                 <a href="research_programme_1.html">
                   IRN BR28712263
                 </a>
               </li>
+
               <li>
                 <a href="research_programme_2.html">
                   The robe from the Bolgan-Ana
                 </a>
-              </li>          
-              
+              </li>
+
             </ul>
+
           </li>
+
 
           <li class="has-submenu">
 
@@ -246,6 +272,7 @@
                   Director
                 </a>
               </li>
+
               <li>
                 <a href="archaeological-expedition.html">
                   Archaeological Expedition
@@ -280,11 +307,13 @@
 
           </li>
 
+
           <li>
             <a href="collections.html">
               Archaeological Collections
             </a>
           </li>
+
 
           <li>
             <a href="#contacts">
@@ -302,101 +331,212 @@
 
 
   <!-- ==================================================
-       MAIN CONTENT
-       Only the section between the marked comments
-       should be replaced or expanded
+       MAIN CONTENT — NEWS PAGE
        ================================================== -->
 
   <main id="main-content">
-     </section>
- <section class="news-intro">
-
-  <div class="container">
-
-    <p class="section-label">
-      INSTITUTE NEWS
-    </p>
-
-    <h1>
-      News
-    </h1>
-
-    <p class="news-lead">
-      Research updates, projects, events, publications and other news
-      from the Institute of Archaeological Research and its research units.
-    </p>
-
-  </div>
-
-</section>
-<section class="news-section">
-
-  <div class="container">
-
-    <div class="news-section-header">
-      <h2>Latest News</h2>
-    </div>
-
-    <div id="news-feed" class="news-feed">
-
-      <p class="news-loading">
-        Loading news…
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-    
 
 
+    <!-- NEWS INTRO -->
+
+    <section class="news-intro">
+
+      <div class="container">
+
+        <p class="section-label">
+          INSTITUTE NEWS
+        </p>
+
+        <h1>
+          News
+        </h1>
+
+        <p class="news-lead">
+          Research updates, projects, events, publications and other news
+          from the Institute of Archaeological Research and its research units.
+        </p>
+
+      </div>
+
+    </section>
 
 
+    <!-- ==================================================
+         DYNAMIC NEWS FEED
+
+         News will later be loaded automatically
+         from the IAR News Database via Google Apps Script.
+
+         Do not add individual news items manually here.
+         ================================================== -->
+
+    <section
+      class="news-section"
+      aria-labelledby="latest-news-heading"
+    >
+
+      <div class="container">
+
+        <div class="news-section-header">
+
+          <h2 id="latest-news-heading">
+            Latest News
+          </h2>
+
+        </div>
 
 
+        <!--
+          JavaScript will insert published news cards
+          inside this container.
+        -->
+
+        <div
+          id="news-feed"
+          class="news-feed"
+          aria-live="polite"
+        >
+
+          <p
+            id="news-loading"
+            class="news-loading"
+          >
+            Loading news…
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
 
 
+    <!-- ==================================================
+         NEWS CARD TEMPLATE
+
+         Hidden template for future Google Sheet integration.
+         JavaScript will clone this structure for each
+         published news item.
+         ================================================== -->
+
+    <template id="news-card-template">
+
+      <article class="news-card">
 
 
+        <!-- IMAGE -->
+
+        <figure class="news-card-image">
+
+          <img
+            src=""
+            alt=""
+            loading="lazy"
+          >
+
+          <figcaption class="news-image-caption">
+
+            <span class="news-photo-caption"></span>
+
+            <span class="news-photo-credit"></span>
+
+          </figcaption>
+
+        </figure>
 
 
-    
-  <section class="news-submit">
+        <!-- CONTENT -->
 
-  <div class="container">
-
-    <div class="news-submit-box">
-
-      <p class="section-label">
-        FOR INSTITUTE STAFF
-      </p>
-
-      <h2>
-        Submit news for publication
-      </h2>
-
-      <p>
-        Institute staff may submit news, announcements, project updates
-        and information about publications through the internal submission form.
-      </p>
-
-      <a
-        class="text-link"
-        href="GOOGLE_FORM_URL"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Open the news submission form
-        <span aria-hidden="true">→</span>
-      </a>
-
-    </div>
-
-  </div>
+        <div class="news-card-content">
 
 
-    <!-- ===== END: EDITABLE ABOUT PAGE CONTENT ===== -->
+          <div class="news-meta">
+
+            <time class="news-date"></time>
+
+            <span class="news-unit"></span>
+
+          </div>
+
+
+          <h2 class="news-title"></h2>
+
+
+          <p class="news-summary"></p>
+
+
+          <div
+            class="news-full-text"
+            hidden
+          ></div>
+
+
+          <a
+            class="text-link news-external-link"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            hidden
+          >
+            <span class="news-link-label">
+              Read more
+            </span>
+
+            <span aria-hidden="true">
+              →
+            </span>
+          </a>
+
+        </div>
+
+      </article>
+
+    </template>
+
+
+    <!-- ==================================================
+         INTERNAL TOOL FOR INSTITUTE STAFF
+
+         Intentionally collapsed and visually secondary.
+         Access to the Google Form itself is restricted.
+         ================================================== -->
+
+    <section class="staff-tools">
+
+      <div class="container">
+
+        <details class="staff-tools-details">
+
+          <summary>
+            Institute staff
+          </summary>
+
+
+          <div class="staff-tools-content">
+
+            <p>
+              Institute staff may submit news, announcements,
+              project updates and information about publications
+              through the internal submission form.
+            </p>
+
+            <a
+              class="text-link"
+              href="GOOGLE_FORM_URL"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open the news submission form
+              <span aria-hidden="true">→</span>
+            </a>
+
+          </div>
+
+        </details>
+
+      </div>
+
+    </section>
 
 
   </main>
@@ -404,7 +544,6 @@
 
   <!-- ==================================================
        FOOTER
-       Keep this section unchanged on all English pages
        ================================================== -->
 
   <footer
@@ -428,6 +567,7 @@
           >
 
         </div>
+
 
         <div>
 
