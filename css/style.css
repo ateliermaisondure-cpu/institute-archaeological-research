@@ -808,47 +808,93 @@ p { margin-top: 0; }
   color: #666;
 }
 
-/* Staff submission block */
+/* =========================================================
+   INTERNAL STAFF TOOLS
+   Discreet access to the news submission form
+   ========================================================= */
 
-.news-submit {
-  padding: 0 0 80px;
+.staff-tools {
+  padding: 20px 0 56px;
 }
 
-.news-submit-box {
-  padding: 36px 40px;
-  border-left: 5px solid #72151b;
-  background: #f8f6f2;
+.staff-tools-details {
+  max-width: 100%;
+  border-top: 1px solid #d8d3ca;
+  padding-top: 18px;
 }
 
-.news-submit-box h2 {
-  margin: 8px 0 12px;
+.staff-tools-details summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  color: #777;
+}
+
+.staff-tools-details summary:hover {
   color: #72151b;
 }
 
-.news-submit-box p {
-  max-width: 760px;
+.staff-tools-details summary::after {
+  content: "+";
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.staff-tools-details[open] summary::after {
+  content: "−";
+}
+
+.staff-tools-content {
+  max-width: 720px;
+  padding: 18px 0 4px;
+}
+
+.staff-tools-content p {
+  margin: 0 0 12px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* =========================================================
+   NEWS IMAGE CAPTIONS
+   ========================================================= */
+
+.news-card-image {
+  margin: 0;
+}
+
+.news-image-caption {
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #6b6b6b;
+}
+
+.news-photo-caption,
+.news-photo-credit {
+  display: block;
+}
+
+.news-photo-credit {
+  margin-top: 2px;
+  font-style: italic;
 }
 
 
-/* Mobile */
+/* Cards without an image */
 
-@media (max-width: 760px) {
+.news-card.no-image {
+  grid-template-columns: 1fr;
+}
 
-  .news-intro {
-    padding: 48px 0 36px;
-  }
-
-  .news-card {
-    grid-template-columns: 1fr;
-    gap: 22px;
-  }
-
-  .news-title {
-    font-size: 26px;
-  }
-
-  .news-submit-box {
-    padding: 28px 24px;
-  }
-
+.news-card.no-image .news-card-image {
+  display: none;
 }
