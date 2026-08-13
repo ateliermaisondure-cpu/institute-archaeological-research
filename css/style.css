@@ -712,3 +712,143 @@ p { margin-top: 0; }
 .text-bold {
   font-weight: 600;
 }
+/* =========================================================
+   NEWS PAGE
+   ========================================================= */
+
+.news-intro {
+  padding: 72px 0 48px;
+  background: #f8f6f2;
+}
+
+.news-intro h1 {
+  margin: 8px 0 18px;
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: 1;
+  color: #72151b;
+}
+
+.news-lead {
+  max-width: 760px;
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.news-section {
+  padding: 64px 0 80px;
+}
+
+.news-section-header {
+  margin-bottom: 32px;
+}
+
+.news-section-header h2 {
+  margin: 0;
+  font-size: 32px;
+  color: #72151b;
+}
+
+.news-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.news-card {
+  display: grid;
+  grid-template-columns: minmax(280px, 38%) 1fr;
+  gap: 36px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid #d8d3ca;
+}
+
+.news-card-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.news-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.news-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9b7227;
+}
+
+.news-title {
+  margin: 0 0 16px;
+  font-size: 30px;
+  line-height: 1.2;
+  color: #72151b;
+}
+
+.news-summary {
+  margin: 0 0 20px;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.news-loading {
+  margin: 0;
+  font-size: 16px;
+  color: #666;
+}
+
+/* Staff submission block */
+
+.news-submit {
+  padding: 0 0 80px;
+}
+
+.news-submit-box {
+  padding: 36px 40px;
+  border-left: 5px solid #72151b;
+  background: #f8f6f2;
+}
+
+.news-submit-box h2 {
+  margin: 8px 0 12px;
+  color: #72151b;
+}
+
+.news-submit-box p {
+  max-width: 760px;
+}
+
+
+/* Mobile */
+
+@media (max-width: 760px) {
+
+  .news-intro {
+    padding: 48px 0 36px;
+  }
+
+  .news-card {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .news-title {
+    font-size: 26px;
+  }
+
+  .news-submit-box {
+    padding: 28px 24px;
+  }
+
+}
