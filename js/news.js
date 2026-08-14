@@ -441,6 +441,40 @@ const displayPhoto =
 
        image.src =
   displayPhoto;
+       if (
+  !item.photo
+  && youtubeThumbnail
+  && item.externalLink
+) {
+
+  const youtubeLink =
+    document.createElement(
+      "a"
+    );
+
+  youtubeLink.href =
+    item.externalLink;
+
+  youtubeLink.target =
+    "_blank";
+
+  youtubeLink.rel =
+    "noopener noreferrer";
+
+  youtubeLink.className =
+    "news-youtube-thumbnail-link";
+
+
+  image.parentNode.insertBefore(
+    youtubeLink,
+    image
+  );
+
+  youtubeLink.appendChild(
+    image
+  );
+
+}
 
       image.alt =
         item.photoCaption
