@@ -17,8 +17,7 @@
      ======================================================= */
 
   const NEWS_FEED_URL =
-    "https://script.google.com/macros/s/AKfycbw4KLMTYZJ3fj4ukLysRoS4WSFFFgwHwrgJzxxzmnKB43b2aJPzl3X_9stex26G1rDw/exec";
-
+    "https://script.google.com/macros/s/AKfycbxxlWBdlAq2lBOrIbPbE-E03aqq85_RaZI8pJOc0n7rCr0u-4h1cK9H2c86-OpMCBPN/exec"
 
   /* =======================================================
      PAGE ELEMENTS
