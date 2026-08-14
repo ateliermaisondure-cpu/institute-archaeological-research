@@ -313,30 +313,24 @@ if (item.externalLink) {
     );
 
 
-  if (item.linkText) {
+ if (isYouTube) {
 
-    linkLabel.textContent =
-      item.linkText;
+  linkLabel.textContent =
+    "Watch video on YouTube";
 
-  } else if (isYouTube) {
+  externalLink.classList.add(
+    "news-video-link"
+  );
 
-    linkLabel.textContent =
-      "Watch video on YouTube";
+} else if (item.linkText) {
 
-    externalLink.classList.add(
-      "news-video-link"
-    );
-
-  } else {
-
-    linkLabel.textContent =
-      "Read more";
-
-  }
+  linkLabel.textContent =
+    item.linkText;
 
 } else {
 
-  externalLink.remove();
+  linkLabel.textContent =
+    "Read more";
 
 }
 
