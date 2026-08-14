@@ -898,3 +898,106 @@ p { margin-top: 0; }
 .news-card.no-image .news-card-image {
   display: none;
 }
+/* =========================================================
+   NEWS — TABLET AND MOBILE
+   Keep this block at the END of style.css
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .news-section {
+    padding: 48px 0 60px;
+  }
+
+  .news-feed {
+    width: 100%;
+    gap: 32px;
+  }
+
+  .news-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    gap: 20px;
+    padding-bottom: 32px;
+  }
+
+  .news-card-image {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+
+  .news-card-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    aspect-ratio: auto;
+    object-fit: contain;
+  }
+
+  .news-card-content {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .news-meta {
+    width: 100%;
+    gap: 6px 12px;
+  }
+
+  .news-unit {
+    overflow-wrap: anywhere;
+  }
+
+  .news-title {
+    font-size: 26px;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+
+  .news-summary,
+  .news-full-text {
+    width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .news-image-caption {
+    width: 100%;
+  }
+
+}
+
+
+/* Smaller phones */
+
+@media (max-width: 520px) {
+
+  .news-intro {
+    padding: 48px 0 42px;
+  }
+
+  .news-intro h1 {
+    font-size: 46px;
+  }
+
+  .news-lead {
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
+  .news-section-header h2 {
+    font-size: 30px;
+  }
+
+  .news-title {
+    font-size: 25px;
+  }
+
+  .news-meta {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+}
