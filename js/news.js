@@ -333,7 +333,11 @@ if (item.externalLink) {
     "Read more";
 
 }
+} else {
 
+  externalLink.remove();
+
+}
 
     /* PHOTO */
 
