@@ -3,7 +3,6 @@
    Institute of Archaeological Research
    ========================================================= */
 
-
 (function () {
 
   "use strict";
@@ -12,12 +11,13 @@
   /* =======================================================
      GOOGLE APPS SCRIPT WEB APP
 
-     Replace the address below with the exact Web App URL
-     ending in /exec.
+     IMPORTANT:
+     Keep the CURRENT Web App URL here.
      ======================================================= */
 
   const NEWS_FEED_URL =
-    "https://script.google.com/macros/s/AKfycbxxlWBdlAq2lBOrIbPbE-E03aqq85_RaZI8pJOc0n7rCr0u-4h1cK9H2c86-OpMCBPN/exec"
+    "https://script.google.com/macros/s/AKfycbxxlWBdlAq2lBOrIbPbE-E03aqq85_RaZI8pJOc0n7rCr0u-4h1cK9H2c86-OpMCBPN/exec";
+
 
   /* =======================================================
      PAGE ELEMENTS
@@ -29,10 +29,29 @@
   const newsTemplate =
     document.getElementById("news-card-template");
 
+  const latestNewsHeading =
+    document.getElementById("latest-news-heading");
+
 
   if (!newsFeed || !newsTemplate) {
     return;
   }
+
+
+  /* =======================================================
+     URL PARAMETER
+
+     Example:
+     news.html?id=N-20260813-E249D9
+     ======================================================= */
+
+  const urlParameters =
+    new URLSearchParams(
+      window.location.search
+    );
+
+  const requestedNewsId =
+    urlParameters.get("id");
 
 
   /* =======================================================
@@ -47,13 +66,17 @@
     }
 
     const date =
-      new Date(dateString + "T00:00:00");
+      new Date(
+        dateString + "T00:00:00"
+      );
 
-
-    if (Number.isNaN(date.getTime())) {
+    if (
+      Number.isNaN(
+        date.getTime()
+      )
+    ) {
       return dateString;
     }
-
 
     return new Intl.DateTimeFormat(
       "en-GB",
@@ -77,32 +100,29 @@
       return "";
     }
 
-
-    /*
-      Example:
-      https://drive.google.com/open?id=FILE_ID
-    */
-
     let match =
-      url.match(/[?&]id=([^&]+)/);
+      url.match(
+        /[?&]id=([^&]+)/
+      );
 
-    if (match && match[1]) {
+    if (
+      match
+      && match[1]
+    ) {
       return match[1];
     }
-
-
-    /*
-      Example:
-      https://drive.google.com/file/d/FILE_ID/view
-    */
 
     match =
-      url.match(/\/d\/([^/]+)/);
+      url.match(
+        /\/d\/([^/]+)/
+      );
 
-    if (match && match[1]) {
+    if (
+      match
+      && match[1]
+    ) {
       return match[1];
     }
-
 
     return "";
 
@@ -116,8 +136,9 @@
   function getImageUrl(photoUrl) {
 
     const fileId =
-      getDriveFileId(photoUrl);
-
+      getDriveFileId(
+        photoUrl
+      );
 
     if (fileId) {
 
@@ -129,51 +150,55 @@
 
     }
 
-
     return photoUrl || "";
 
   }
 
 
   /* =======================================================
-     CREATE ONE NEWS CARD
+     CREATE ONE FULL NEWS CARD
      ======================================================= */
 
   function createNewsCard(item) {
 
     const fragment =
-      newsTemplate.content.cloneNode(true);
+      newsTemplate
+        .content
+        .cloneNode(true);
 
     const card =
-      fragment.querySelector(".news-card");
+      fragment.querySelector(
+        ".news-card"
+      );
 
 
-    /* -------------------------------------------------------
-       FEATURED
-       ------------------------------------------------------- */
+    /* FEATURED */
 
     if (item.featured) {
-      card.classList.add("featured");
+      card.classList.add(
+        "featured"
+      );
     }
 
 
-    /* -------------------------------------------------------
-       DATE
-       ------------------------------------------------------- */
+    /* DATE */
 
     const dateElement =
-      fragment.querySelector(".news-date");
+      fragment.querySelector(
+        ".news-date"
+      );
 
     const displayDate =
       item.publicationDate
       || item.eventDate
       || "";
 
-
     if (displayDate) {
 
       dateElement.textContent =
-        formatDate(displayDate);
+        formatDate(
+          displayDate
+        );
 
       dateElement.setAttribute(
         "datetime",
@@ -187,13 +212,12 @@
     }
 
 
-    /* -------------------------------------------------------
-       UNIT
-       ------------------------------------------------------- */
+    /* UNIT */
 
     const unitElement =
-      fragment.querySelector(".news-unit");
-
+      fragment.querySelector(
+        ".news-unit"
+      );
 
     if (item.unit) {
 
@@ -207,24 +231,23 @@
     }
 
 
-    /* -------------------------------------------------------
-       TITLE
-       ------------------------------------------------------- */
+    /* TITLE */
 
     const titleElement =
-      fragment.querySelector(".news-title");
+      fragment.querySelector(
+        ".news-title"
+      );
 
     titleElement.textContent =
       item.title || "";
 
 
-    /* -------------------------------------------------------
-       SHORT SUMMARY
-       ------------------------------------------------------- */
+    /* SUMMARY */
 
     const summaryElement =
-      fragment.querySelector(".news-summary");
-
+      fragment.querySelector(
+        ".news-summary"
+      );
 
     if (item.summary) {
 
@@ -238,20 +261,20 @@
     }
 
 
-    /* -------------------------------------------------------
-       FULL TEXT
-       ------------------------------------------------------- */
+    /* FULL TEXT */
 
     const fullTextElement =
-      fragment.querySelector(".news-full-text");
-
+      fragment.querySelector(
+        ".news-full-text"
+      );
 
     if (item.fullText) {
 
       fullTextElement.textContent =
         item.fullText;
 
-      fullTextElement.hidden = false;
+      fullTextElement.hidden =
+        false;
 
     } else {
 
@@ -260,15 +283,12 @@
     }
 
 
-    /* -------------------------------------------------------
-       EXTERNAL LINK
-       ------------------------------------------------------- */
+    /* EXTERNAL LINK */
 
     const externalLink =
       fragment.querySelector(
         ".news-external-link"
       );
-
 
     if (item.externalLink) {
 
@@ -278,12 +298,10 @@
       externalLink.hidden =
         false;
 
-
       const linkLabel =
         fragment.querySelector(
           ".news-link-label"
         );
-
 
       linkLabel.textContent =
         item.linkText
@@ -296,9 +314,7 @@
     }
 
 
-    /* -------------------------------------------------------
-       PHOTO
-       ------------------------------------------------------- */
+    /* PHOTO */
 
     const figure =
       fragment.querySelector(
@@ -310,23 +326,18 @@
         ".news-card-image img"
       );
 
-
     if (item.photo) {
 
       image.src =
-        getImageUrl(item.photo);
+        getImageUrl(
+          item.photo
+        );
 
       image.alt =
         item.photoCaption
         || item.title
         || "News image";
 
-
-      /*
-        If Google Drive does not allow the image
-        to be displayed publicly, remove the image
-        but keep the news card.
-      */
 
       image.addEventListener(
         "error",
@@ -342,7 +353,7 @@
       );
 
 
-      /* Caption */
+      /* PHOTO CAPTION */
 
       const caption =
         fragment.querySelector(
@@ -410,76 +421,438 @@
 
 
   /* =======================================================
-     DISPLAY NEWS
+     CREATE EARLIER NEWS
      ======================================================= */
 
-  function renderNews(data) {
-
-    newsFeed.innerHTML = "";
-
+  function createEarlierNews(items) {
 
     if (
-      !data
-      || data.ok !== true
+      !Array.isArray(items)
+      || items.length === 0
     ) {
-
-      const message =
-        document.createElement("p");
-
-      message.className =
-        "news-loading";
-
-      message.textContent =
-        "News could not be loaded.";
-
-      newsFeed.appendChild(
-        message
-      );
-
-      return;
-
+      return null;
     }
 
 
-    if (
-      !Array.isArray(data.news)
-      || data.news.length === 0
-    ) {
-
-      const message =
-        document.createElement("p");
-
-      message.className =
-        "news-loading";
-
-      message.textContent =
-        "No news has been published yet.";
-
-      newsFeed.appendChild(
-        message
+    const section =
+      document.createElement(
+        "section"
       );
 
-      return;
+    section.className =
+      "earlier-news";
 
-    }
+
+    const heading =
+      document.createElement(
+        "h3"
+      );
+
+    heading.className =
+      "earlier-news-heading";
+
+    heading.textContent =
+      "Earlier News";
+
+    section.appendChild(
+      heading
+    );
 
 
-    data.news.forEach(
+    const list =
+      document.createElement(
+        "div"
+      );
+
+    list.className =
+      "earlier-news-list";
+
+
+    items.forEach(
       function (item) {
 
-        newsFeed.appendChild(
-          createNewsCard(item)
+        const link =
+          document.createElement(
+            "a"
+          );
+
+        link.className =
+          "earlier-news-item";
+
+        link.href =
+          "news.html?id="
+          + encodeURIComponent(
+              item.id
+            );
+
+
+        /* DATE */
+
+        const date =
+          document.createElement(
+            "time"
+          );
+
+        date.className =
+          "earlier-news-date";
+
+        const displayDate =
+          item.publicationDate
+          || item.eventDate
+          || "";
+
+        date.textContent =
+          formatDate(
+            displayDate
+          );
+
+        if (displayDate) {
+
+          date.setAttribute(
+            "datetime",
+            displayDate
+          );
+
+        }
+
+
+        /* TEXT */
+
+        const content =
+          document.createElement(
+            "span"
+          );
+
+        content.className =
+          "earlier-news-content";
+
+
+        const title =
+          document.createElement(
+            "strong"
+          );
+
+        title.className =
+          "earlier-news-title";
+
+        title.textContent =
+          item.title
+          || "News";
+
+
+        const unit =
+          document.createElement(
+            "span"
+          );
+
+        unit.className =
+          "earlier-news-unit";
+
+        unit.textContent =
+          item.unit || "";
+
+
+        content.appendChild(
+          title
+        );
+
+        if (item.unit) {
+
+          content.appendChild(
+            unit
+          );
+
+        }
+
+
+        /* ARROW */
+
+        const arrow =
+          document.createElement(
+            "span"
+          );
+
+        arrow.className =
+          "earlier-news-arrow";
+
+        arrow.setAttribute(
+          "aria-hidden",
+          "true"
+        );
+
+        arrow.textContent =
+          "→";
+
+
+        link.appendChild(
+          date
+        );
+
+        link.appendChild(
+          content
+        );
+
+        link.appendChild(
+          arrow
+        );
+
+        list.appendChild(
+          link
         );
 
       }
+    );
+
+
+    section.appendChild(
+      list
+    );
+
+    return section;
+
+  }
+
+
+  /* =======================================================
+     BACK TO ALL NEWS LINK
+     ======================================================= */
+
+  function createBackLink() {
+
+    const wrapper =
+      document.createElement(
+        "div"
+      );
+
+    wrapper.className =
+      "news-back";
+
+
+    const link =
+      document.createElement(
+        "a"
+      );
+
+    link.className =
+      "text-link";
+
+    link.href =
+      "news.html";
+
+    link.textContent =
+      "← Back to all news";
+
+
+    wrapper.appendChild(
+      link
+    );
+
+    return wrapper;
+
+  }
+
+
+  /* =======================================================
+     DISPLAY MAIN NEWS PAGE
+
+     Maximum:
+     2 full news items
+
+     All older items:
+     Earlier News
+     ======================================================= */
+
+  function renderNewsList(data) {
+
+    newsFeed.innerHTML =
+      "";
+
+
+    const allNews =
+      data.news;
+
+
+    const latestNews =
+      allNews.slice(
+        0,
+        2
+      );
+
+
+    const earlierNews =
+      allNews.slice(
+        2
+      );
+
+
+    latestNews.forEach(
+      function (item) {
+
+        newsFeed.appendChild(
+          createNewsCard(
+            item
+          )
+        );
+
+      }
+    );
+
+
+    const earlierSection =
+      createEarlierNews(
+        earlierNews
+      );
+
+
+    if (earlierSection) {
+
+      newsFeed.appendChild(
+        earlierSection
+      );
+
+    }
+
+  }
+
+
+  /* =======================================================
+     DISPLAY ONE NEWS ITEM BY ID
+     ======================================================= */
+
+  function renderSingleNews(
+    data,
+    newsId
+  ) {
+
+    newsFeed.innerHTML =
+      "";
+
+
+    const item =
+      data.news.find(
+        function (newsItem) {
+
+          return (
+            newsItem.id
+            === newsId
+          );
+
+        }
+      );
+
+
+    if (!item) {
+
+      const message =
+        document.createElement(
+          "p"
+        );
+
+      message.className =
+        "news-loading";
+
+      message.textContent =
+        "News item not found.";
+
+
+      newsFeed.appendChild(
+        createBackLink()
+      );
+
+      newsFeed.appendChild(
+        message
+      );
+
+      return;
+
+    }
+
+
+    if (latestNewsHeading) {
+
+      latestNewsHeading.textContent =
+        "News";
+
+    }
+
+
+    document.title =
+      (item.title || "News")
+      + " | Institute of Archaeological Research";
+
+
+    newsFeed.appendChild(
+      createBackLink()
+    );
+
+
+    newsFeed.appendChild(
+      createNewsCard(
+        item
+      )
     );
 
   }
 
 
   /* =======================================================
-     JSONP
-     Loads the public feed from Google Apps Script
+     DISPLAY DATA
+     ======================================================= */
+
+  function renderNews(data) {
+
+    if (
+      !data
+      || data.ok !== true
+    ) {
+
+      newsFeed.innerHTML =
+        '<p class="news-loading">'
+        + 'News could not be loaded.'
+        + '</p>';
+
+      return;
+
+    }
+
+
+    if (
+      !Array.isArray(
+        data.news
+      )
+      || data.news.length === 0
+    ) {
+
+      newsFeed.innerHTML =
+        '<p class="news-loading">'
+        + 'No news has been published yet.'
+        + '</p>';
+
+      return;
+
+    }
+
+
+    if (requestedNewsId) {
+
+      renderSingleNews(
+        data,
+        requestedNewsId
+      );
+
+    } else {
+
+      renderNewsList(
+        data
+      );
+
+    }
+
+  }
+
+
+  /* =======================================================
+     JSONP LOADER
      ======================================================= */
 
   function loadNews() {
@@ -519,19 +892,25 @@
     function cleanup() {
 
       if (script.parentNode) {
+
         script.parentNode.removeChild(
           script
         );
+
       }
 
       try {
+
         delete window[
           callbackName
         ];
+
       } catch (error) {
+
         window[
           callbackName
         ] = undefined;
+
       }
 
     }
@@ -542,18 +921,28 @@
     ] =
       function (data) {
 
-        finished = true;
+        finished =
+          true;
 
         cleanup();
 
-        renderNews(data);
+        renderNews(
+          data
+        );
 
       };
 
 
+    const separator =
+      NEWS_FEED_URL.includes("?")
+        ? "&"
+        : "?";
+
+
     script.src =
       NEWS_FEED_URL
-      + "?callback="
+      + separator
+      + "callback="
       + encodeURIComponent(
           callbackName
         )
@@ -568,7 +957,8 @@
           return;
         }
 
-        finished = true;
+        finished =
+          true;
 
         cleanup();
 
@@ -585,10 +975,6 @@
     );
 
 
-    /*
-      Stop waiting after 15 seconds.
-    */
-
     window.setTimeout(
       function () {
 
@@ -596,7 +982,8 @@
           return;
         }
 
-        finished = true;
+        finished =
+          true;
 
         cleanup();
 
