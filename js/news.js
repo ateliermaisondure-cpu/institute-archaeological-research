@@ -425,12 +425,22 @@ if (item.externalLink) {
         ".news-card-image img"
       );
 
-    if (item.photo) {
+     const youtubeThumbnail =
+  getYouTubeThumbnail(
+    item.externalLink
+  );
 
-      image.src =
-        getImageUrl(
-          item.photo
-        );
+const displayPhoto =
+  item.photo
+    ? getImageUrl(
+        item.photo
+      )
+    : youtubeThumbnail;
+
+    if (displayPhoto) {
+
+       image.src =
+  displayPhoto;
 
       image.alt =
         item.photoCaption
