@@ -52,6 +52,8 @@
 
   const requestedNewsId =
     urlParameters.get("id");
+   const requestedView =
+  urlParameters.get("view");
 
 
   /* =======================================================
@@ -423,67 +425,389 @@
   /* =======================================================
      CREATE EARLIER NEWS
      ======================================================= */
+function createEarlierNews(items) {
 
-  function createEarlierNews(items) {
-
-    if (
-      !Array.isArray(items)
-      || items.length === 0
-    ) {
-      return null;
-    }
-
-
-    const section =
-      document.createElement(
-        "section"
-      );
-
-    section.className =
-      "earlier-news";
+  if (
+    !Array.isArray(items)
+    || items.length === 0
+  ) {
+    return null;
+  }
 
 
-    const heading =
-      document.createElement(
-        "h3"
-      );
+  const section =
+    document.createElement(
+      "section"
+    );
 
-    heading.className =
-      "earlier-news-heading";
+  section.className =
+    "earlier-news";
 
-    heading.textContent =
-      "Earlier News";
 
-    section.appendChild(
-      heading
+  const heading =
+    document.createElement(
+      "h3"
+    );
+
+  heading.className =
+    "earlier-news-heading";
+
+  heading.textContent =
+    "Earlier News";
+
+  section.appendChild(
+    heading
+  );
+
+
+  const list =
+    document.createElement(
+      "div"
+    );
+
+  list.className =
+    "earlier-news-list";
+
+
+  const visibleItems =
+    items.slice(
+      0,
+      3
     );
 
 
-    const list =
+  visibleItems.forEach(
+    function (item) {
+
+      const link =
+        document.createElement(
+          "a"
+        );
+
+      link.className =
+        "earlier-news-item";
+
+      link.href =
+        "news.html?id="
+        + encodeURIComponent(
+            item.id
+          );
+
+
+      const date =
+        document.createElement(
+          "time"
+        );
+
+      date.className =
+        "earlier-news-date";
+
+      const displayDate =
+        item.publicationDate
+        || item.eventDate
+        || "";
+
+      date.textContent =
+        formatDate(
+          displayDate
+        );
+
+      if (displayDate) {
+
+        date.setAttribute(
+          "datetime",
+          displayDate
+        );
+
+      }
+
+
+      const content =
+        document.createElement(
+          "span"
+        );
+
+      content.className =
+        "earlier-news-content";
+
+
+      const title =
+        document.createElement(
+          "strong"
+        );
+
+      title.className =
+        "earlier-news-title";
+
+      title.textContent =
+        item.title
+        || "News";
+
+
+      const unit =
+        document.createElement(
+          "span"
+        );
+
+      unit.className =
+        "earlier-news-unit";
+
+      unit.textContent =
+        item.unit || "";
+
+
+      content.appendChild(
+        title
+      );
+
+      if (item.unit) {
+
+        content.appendChild(
+          unit
+        );
+
+      }
+
+
+      const arrow =
+        document.createElement(
+          "span"
+        );
+
+      arrow.className =
+        "earlier-news-arrow";
+
+      arrow.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      arrow.textContent =
+        "→";
+
+
+      link.appendChild(
+        date
+      );
+
+      link.appendChild(
+        content
+      );
+
+      link.appendChild(
+        arrow
+      );
+
+      list.appendChild(
+        link
+      );
+
+    }
+  );
+
+
+  section.appendChild(
+    list
+  );
+
+
+  if (items.length > 3) {
+
+    const more =
       document.createElement(
         "div"
       );
 
-    list.className =
-      "earlier-news-list";
+    more.className =
+      "earlier-news-more";
 
 
-    items.forEach(
-      function (item) {
+    const moreLink =
+      document.createElement(
+        "a"
+      );
 
-        const link =
-          document.createElement(
-            "a"
+    moreLink.href =
+      "news.html?view=archive";
+
+    moreLink.className =
+      "text-link";
+
+    moreLink.textContent =
+      "View all earlier news →";
+
+
+    more.appendChild(
+      moreLink
+    );
+
+    section.appendChild(
+      more
+    );
+
+  }
+
+
+  return section;
+
+}
+
+
+/* =======================================================
+   FULL NEWS ARCHIVE
+   ======================================================= */
+
+function createArchiveList(items) {
+
+  const list =
+    document.createElement(
+      "div"
+    );
+
+  list.className =
+    "news-archive-list";
+
+
+  items.forEach(
+    function (item) {
+
+      const link =
+        document.createElement(
+          "a"
+        );
+
+      link.className =
+        "news-archive-item";
+
+      link.href =
+        "news.html?id="
+        + encodeURIComponent(
+            item.id
           );
 
-        link.className =
-          "earlier-news-item";
 
-        link.href =
-          "news.html?id="
-          + encodeURIComponent(
-              item.id
-            );
+      const date =
+        document.createElement(
+          "time"
+        );
+
+      date.className =
+        "news-archive-date";
+
+
+      const displayDate =
+        item.publicationDate
+        || item.eventDate
+        || "";
+
+
+      date.textContent =
+        formatDate(
+          displayDate
+        );
+
+
+      if (displayDate) {
+
+        date.setAttribute(
+          "datetime",
+          displayDate
+        );
+
+      }
+
+
+      const content =
+        document.createElement(
+          "span"
+        );
+
+      content.className =
+        "news-archive-content";
+
+
+      const title =
+        document.createElement(
+          "strong"
+        );
+
+      title.className =
+        "news-archive-title";
+
+      title.textContent =
+        item.title
+        || "News";
+
+
+      const unit =
+        document.createElement(
+          "span"
+        );
+
+      unit.className =
+        "news-archive-unit";
+
+      unit.textContent =
+        item.unit || "";
+
+
+      content.appendChild(
+        title
+      );
+
+
+      if (item.unit) {
+
+        content.appendChild(
+          unit
+        );
+
+      }
+
+
+      const arrow =
+        document.createElement(
+          "span"
+        );
+
+      arrow.className =
+        "news-archive-arrow";
+
+      arrow.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      arrow.textContent =
+        "→";
+
+
+      link.appendChild(
+        date
+      );
+
+      link.appendChild(
+        content
+      );
+
+      link.appendChild(
+        arrow
+      );
+
+
+      list.appendChild(
+        link
+      );
+
+    }
+  );
+
+
+  return list;
+
+}
+
+   
 
 
         /* DATE */
@@ -714,7 +1038,70 @@
 
   }
 
+/* =======================================================
+   DISPLAY NEWS ARCHIVE
+   ======================================================= */
 
+function renderArchive(data) {
+
+  newsFeed.innerHTML =
+    "";
+
+
+  const archiveItems =
+    data.news.slice(
+      2
+    );
+
+
+  if (latestNewsHeading) {
+
+    latestNewsHeading.textContent =
+      "News Archive";
+
+  }
+
+
+  document.title =
+    "News Archive | Institute of Archaeological Research";
+
+
+  newsFeed.appendChild(
+    createBackLink()
+  );
+
+
+  if (
+    archiveItems.length === 0
+  ) {
+
+    const message =
+      document.createElement(
+        "p"
+      );
+
+    message.className =
+      "news-loading";
+
+    message.textContent =
+      "There are no earlier news items yet.";
+
+    newsFeed.appendChild(
+      message
+    );
+
+    return;
+
+  }
+
+
+  newsFeed.appendChild(
+    createArchiveList(
+      archiveItems
+    )
+  );
+
+}
   /* =======================================================
      DISPLAY ONE NEWS ITEM BY ID
      ======================================================= */
@@ -833,20 +1220,28 @@
     }
 
 
-    if (requestedNewsId) {
+ if (requestedNewsId) {
 
-      renderSingleNews(
-        data,
-        requestedNewsId
-      );
+  renderSingleNews(
+    data,
+    requestedNewsId
+  );
 
-    } else {
+} else if (
+  requestedView === "archive"
+) {
 
-      renderNewsList(
-        data
-      );
+  renderArchive(
+    data
+  );
 
-    }
+} else {
+
+  renderNewsList(
+    data
+  );
+
+}
 
   }
 
