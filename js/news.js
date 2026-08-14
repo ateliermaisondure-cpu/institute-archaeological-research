@@ -156,7 +156,81 @@
 
   }
 
+/* =======================================================
+   YOUTUBE VIDEO
+   ======================================================= */
 
+function getYouTubeVideoId(url) {
+
+  if (!url) {
+    return "";
+  }
+
+
+  let match =
+    url.match(
+      /youtu\.be\/([^?&/]+)/
+    );
+
+  if (match && match[1]) {
+    return match[1];
+  }
+
+
+  match =
+    url.match(
+      /youtube\.com\/watch\?.*v=([^&]+)/
+    );
+
+  if (match && match[1]) {
+    return match[1];
+  }
+
+
+  match =
+    url.match(
+      /youtube\.com\/shorts\/([^?&/]+)/
+    );
+
+  if (match && match[1]) {
+    return match[1];
+  }
+
+
+  match =
+    url.match(
+      /youtube\.com\/embed\/([^?&/]+)/
+    );
+
+  if (match && match[1]) {
+    return match[1];
+  }
+
+
+  return "";
+
+}
+
+
+function getYouTubeThumbnail(url) {
+
+  const videoId =
+    getYouTubeVideoId(
+      url
+    );
+
+  if (!videoId) {
+    return "";
+  }
+
+
+  return (
+    "https://i.ytimg.com/vi/"
+    + encodeURIComponent(videoId)
+    + "/hqdefault.jpg"
+  );
+
+}
   /* =======================================================
      CREATE ONE FULL NEWS CARD
      ======================================================= */
