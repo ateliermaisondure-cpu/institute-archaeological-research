@@ -287,33 +287,58 @@
 
     /* EXTERNAL LINK */
 
-    const externalLink =
-      fragment.querySelector(
-        ".news-external-link"
-      );
+const externalLink =
+  fragment.querySelector(
+    ".news-external-link"
+  );
 
-    if (item.externalLink) {
+if (item.externalLink) {
 
-      externalLink.href =
-        item.externalLink;
+  externalLink.href =
+    item.externalLink;
 
-      externalLink.hidden =
-        false;
+  externalLink.hidden =
+    false;
 
-      const linkLabel =
-        fragment.querySelector(
-          ".news-link-label"
-        );
 
-      linkLabel.textContent =
-        item.linkText
-        || "Read more";
+  const linkLabel =
+    fragment.querySelector(
+      ".news-link-label"
+    );
 
-    } else {
 
-      externalLink.remove();
+  const isYouTube =
+    /(?:youtube\.com|youtu\.be)/i.test(
+      item.externalLink
+    );
 
-    }
+
+  if (item.linkText) {
+
+    linkLabel.textContent =
+      item.linkText;
+
+  } else if (isYouTube) {
+
+    linkLabel.textContent =
+      "Watch video on YouTube";
+
+    externalLink.classList.add(
+      "news-video-link"
+    );
+
+  } else {
+
+    linkLabel.textContent =
+      "Read more";
+
+  }
+
+} else {
+
+  externalLink.remove();
+
+}
 
 
     /* PHOTO */
