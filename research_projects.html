@@ -11,12 +11,12 @@
   >
 
   <meta
-    name="description"
-    content="News, research updates, projects, events and publications from the Institute of Archaeological Research at Margulan University"
-  >
+  name="description"
+  content="Current and completed research projects of the Institute of Archaeological Research at Margulan University"
+>
 
   <title>
-    Research Programme | Institute of Archaeological Research
+    Research Projects | Institute of Archaeological Research
   </title>
 
   <link
@@ -113,10 +113,10 @@
             </a>
 
             <a
-              class="active"
-              href="news.html"
-              aria-current="page"
-              aria-label="English language"
+               class="active"
+  href="projects.html"
+  aria-current="page"
+  aria-label="English language"
             >
               EN
             </a>
@@ -226,10 +226,10 @@
             <li>
             <a
               class="active"
-              href="research_programme.html"
+              href="research_projects.html"
               aria-current="page"
             >
-              Research Programme
+              Research Projects
             </a>
           </li>
 
@@ -341,14 +341,14 @@
     </section>
 
 
-    <!-- ==================================================
-         DYNAMIC NEWS FEED
-         Do not add individual news items manually here.
-         ================================================== -->
+<!-- ==================================================
+     DYNAMIC PROJECTS FEED
+     Do not add individual projects manually here.
+     ================================================== -->
 
     <section
       class="news-section"
-      aria-labelledby="latest-news-heading"
+      aria-labelledby="latest-projects-heading"
     >
 
       <div class="container">
@@ -368,13 +368,13 @@
         -->
 
         <div
-          id="news-feed"
+          id="projects-feed"
           class="news-feed"
           aria-live="polite"
         >
 
           <p
-            id="news-loading"
+            id="projects-loading"
             class="news-loading"
           >
             Loading Projects…
@@ -392,10 +392,10 @@
 
          Hidden template for future Google Sheet integration.
          JavaScript will clone this structure for each
-         published news item.
+         published published project.
          ================================================== -->
 
-    <template id="news-card-template">
+    <template id="project-card-template">
 
       <article class="news-card">
 
@@ -500,7 +500,7 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              Open the news submission form
+              Open the project submission form
               <span aria-hidden="true">→</span>
             </a>
 
@@ -644,7 +644,7 @@
 
 
   <script src="js/main.js"></script>
-  <script src="js/news.js"></script>
+  <script src="js/projects.js"></script>
 
 </body>
 
