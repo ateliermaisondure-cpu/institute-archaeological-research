@@ -1229,4 +1229,115 @@ p { margin-top: 0; }
     align-self: center;
   }
 
+/* =========================================================
+   RESEARCH PROJECTS
+   ========================================================= */
+
+.project-card {
+  width: 100%;
+}
+
+
+/* Basic project information */
+
+.project-details {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  margin: 14px 0 18px;
+  padding: 12px 0;
+
+  border-top: 1px solid #e2ddd5;
+  border-bottom: 1px solid #e2ddd5;
+}
+
+.project-detail {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.project-detail-label {
+  font-size: 11px;
+  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+
+  color: #72151b;
+}
+
+.project-detail-value {
+  font-size: 14px;
+  line-height: 1.5;
+
+  color: #333;
+}
+
+
+/* Extended information on individual project page */
+
+.project-extended-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  margin-top: 24px;
+  padding-top: 20px;
+
+  border-top: 1px solid #d8d3ca;
+}
+
+.project-extended-details .project-detail {
+  grid-template-columns: 160px minmax(0, 1fr);
+}
+
+.project-extended-details .project-detail-value {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+
+/* Earlier projects */
+
+.earlier-projects {
+  margin-top: 12px;
+}
+
+
+/* Projects archive */
+
+.projects-archive-list {
+  width: 100%;
+}
+
+
+/* Mobile */
+
+@media (max-width: 760px) {
+
+  .project-detail,
+  .project-extended-details .project-detail {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+
+  .project-details {
+    gap: 10px;
+  }
+
+  .project-extended-details {
+    gap: 16px;
+  }
+
+  .project-detail-label {
+    font-size: 10px;
+  }
+
+  .project-detail-value {
+    font-size: 14px;
+  }
+
 }
