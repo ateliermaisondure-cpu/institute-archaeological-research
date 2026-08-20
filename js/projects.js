@@ -47,8 +47,8 @@
   /* =======================================================
      URL PARAMETERS
 
-     projects.html?id=PRJ-...
-     projects.html?view=archive
+     research_projects.html?id=PRJ-...
+     research_projects.html?view=archive
      ======================================================= */
 
   const urlParameters =
@@ -196,7 +196,7 @@
 
     match =
       url.match(
-        /youtube\.com\/watch\?.*v=([^&]+)/
+        /youtube\.com\/watch\?.*[?&]v=([^&]+)/
       );
 
 
@@ -266,7 +266,7 @@
   /* =======================================================
      CHRONOLOGICAL SORTING
 
-     Two most recently published projects must always
+     Two most recently published projects always
      appear first, just like the News page.
      ======================================================= */
 
@@ -305,7 +305,11 @@
     value
   ) {
 
-    if (!value) {
+    if (
+      value === null
+      || value === undefined
+      || String(value).trim() === ""
+    ) {
       return null;
     }
 
@@ -358,6 +362,32 @@
 
 
   /* =======================================================
+     FEATURED VALUE
+     ======================================================= */
+
+  function isFeatured(value) {
+
+    if (value === true) {
+      return true;
+    }
+
+
+    if (!value) {
+      return false;
+    }
+
+
+    return (
+      String(value)
+        .trim()
+        .toLowerCase()
+      === "yes"
+    );
+
+  }
+
+
+  /* =======================================================
      CREATE ONE FULL PROJECT CARD
      ======================================================= */
 
@@ -383,7 +413,20 @@
     );
 
 
-    if (item.featured) {
+    if (fullDetails) {
+
+      card.classList.add(
+        "single-project"
+      );
+
+    }
+
+
+    if (
+      isFeatured(
+        item.featured
+      )
+    ) {
 
       card.classList.add(
         "featured"
@@ -400,7 +443,10 @@
       );
 
 
-    if (item.publicationDate) {
+    if (
+      dateElement
+      && item.publicationDate
+    ) {
 
       dateElement.textContent =
         formatDate(
@@ -412,7 +458,7 @@
         item.publicationDate
       );
 
-    } else {
+    } else if (dateElement) {
 
       dateElement.remove();
 
@@ -427,12 +473,15 @@
       );
 
 
-    if (item.unit) {
+    if (
+      unitElement
+      && item.unit
+    ) {
 
       unitElement.textContent =
         item.unit;
 
-    } else {
+    } else if (unitElement) {
 
       unitElement.remove();
 
@@ -453,7 +502,7 @@
       || "Research Project";
 
 
-    /* PROJECT DETAILS */
+    /* BASIC PROJECT DETAILS */
 
     const details =
       document.createElement(
@@ -506,7 +555,9 @@
     );
 
 
-    if (details.children.length) {
+    if (
+      details.children.length
+    ) {
 
       titleElement.insertAdjacentElement(
         "afterend",
@@ -516,7 +567,7 @@
     }
 
 
-    /* SUMMARY */
+    /* SHORT SUMMARY */
 
     const summaryElement =
       fragment.querySelector(
@@ -524,19 +575,22 @@
       );
 
 
-    if (item.summary) {
+    if (
+      summaryElement
+      && item.summary
+    ) {
 
       summaryElement.textContent =
         item.summary;
 
-    } else {
+    } else if (summaryElement) {
 
       summaryElement.remove();
 
     }
 
 
-    /* FULL DESCRIPTION */
+    /* OLD FULL DESCRIPTION FIELD IS NO LONGER USED */
 
     const fullTextElement =
       fragment.querySelector(
@@ -544,120 +598,112 @@
       );
 
 
-    if (
-      fullDetails
-      && item.description
-    ) {
-
-      fullTextElement.textContent =
-        item.description;
-
-      fullTextElement.hidden =
-        false;
-
-    } else {
+    if (fullTextElement) {
 
       fullTextElement.remove();
 
     }
 
 
-    /* ADDITIONAL DETAILS FOR INDIVIDUAL PROJECT PAGE */
+    /* =====================================================
+       ADDITIONAL PUBLIC PROJECT DETAILS
 
-    if (fullDetails) {
+       These fields are shown on Latest Projects
+       and on the individual project page.
+       Empty fields are automatically omitted.
+       ===================================================== */
 
-      const extendedDetails =
-        document.createElement(
-          "div"
-        );
-
-      extendedDetails.className =
-        "project-extended-details";
-
-
-      const fields = [
-
-        [
-          "Project team",
-          item.team
-        ],
-
-        [
-          "Funding / Support",
-          item.funding
-        ],
-
-        [
-          "Partner institutions",
-          item.partners
-        ],
-
-        [
-          "Geographic scope",
-          item.geography
-        ],
-
-        [
-          "Research focus",
-          item.researchFocus
-        ],
-
-        [
-          "Key results",
-          item.keyResults
-        ]
-
-      ];
-
-
-      fields.forEach(
-        function (field) {
-
-          const row =
-            createProjectDetail(
-              field[0],
-              field[1]
-            );
-
-
-          if (row) {
-
-            extendedDetails.appendChild(
-              row
-            );
-
-          }
-
-        }
+    const extendedDetails =
+      document.createElement(
+        "div"
       );
 
+    extendedDetails.className =
+      "project-extended-details";
 
-      if (
-        extendedDetails.children.length
-      ) {
 
-        const linkElement =
-          fragment.querySelector(
-            ".news-external-link"
+    const additionalFields = [
+
+      [
+        "Project team",
+        item.team
+      ],
+
+      [
+        "Funding / Support",
+        item.funding
+      ],
+
+      [
+        "Partner institutions",
+        item.partners
+      ],
+
+      [
+        "Geographic scope",
+        item.geography
+      ],
+
+      [
+        "Key results",
+        item.keyResults
+      ]
+
+    ];
+
+
+    additionalFields.forEach(
+      function (field) {
+
+        const row =
+          createProjectDetail(
+            field[0],
+            field[1]
           );
 
 
-        if (linkElement) {
+        if (row) {
 
-          linkElement.insertAdjacentElement(
-            "beforebegin",
+          extendedDetails.appendChild(
+            row
+          );
+
+        }
+
+      }
+    );
+
+
+    if (
+      extendedDetails.children.length
+    ) {
+
+      const externalLinkPosition =
+        fragment.querySelector(
+          ".news-external-link"
+        );
+
+
+      if (externalLinkPosition) {
+
+        externalLinkPosition.insertAdjacentElement(
+          "beforebegin",
+          extendedDetails
+        );
+
+      } else {
+
+        const content =
+          fragment.querySelector(
+            ".news-card-content"
+          );
+
+
+        if (content) {
+
+          content.appendChild(
             extendedDetails
           );
-
-        } else {
-
-          fragment
-            .querySelector(
-              ".news-card-content"
-            )
-            .appendChild(
-              extendedDetails
-            );
 
         }
 
@@ -674,10 +720,19 @@
       );
 
 
-    if (item.externalLink) {
+    if (
+      externalLink
+      && item.externalLink
+    ) {
 
       externalLink.href =
         item.externalLink;
+
+      externalLink.target =
+        "_blank";
+
+      externalLink.rel =
+        "noopener noreferrer";
 
       externalLink.hidden =
         false;
@@ -695,24 +750,28 @@
         );
 
 
-      if (isYouTube) {
+      if (linkLabel) {
 
-        linkLabel.textContent =
-          "Watch video on YouTube";
+        if (isYouTube) {
 
-      } else if (item.linkText) {
+          linkLabel.textContent =
+            "Watch video on YouTube";
 
-        linkLabel.textContent =
-          item.linkText;
+        } else if (item.linkText) {
 
-      } else {
+          linkLabel.textContent =
+            item.linkText;
 
-        linkLabel.textContent =
-          "Read more";
+        } else {
+
+          linkLabel.textContent =
+            "Read more";
+
+        }
 
       }
 
-    } else {
+    } else if (externalLink) {
 
       externalLink.remove();
 
@@ -746,7 +805,11 @@
         : youtubeThumbnail;
 
 
-    if (displayPhoto) {
+    if (
+      figure
+      && image
+      && displayPhoto
+    ) {
 
       image.src =
         displayPhoto;
@@ -828,24 +891,30 @@
         );
 
 
-      if (item.photoCaption) {
+      if (
+        caption
+        && item.photoCaption
+      ) {
 
         caption.textContent =
           item.photoCaption;
 
-      } else {
+      } else if (caption) {
 
         caption.remove();
 
       }
 
 
-      if (item.photoCredit) {
+      if (
+        credit
+        && item.photoCredit
+      ) {
 
         credit.textContent =
           item.photoCredit;
 
-      } else {
+      } else if (credit) {
 
         credit.remove();
 
@@ -853,7 +922,8 @@
 
 
       if (
-        !item.photoCaption
+        figcaption
+        && !item.photoCaption
         && !item.photoCredit
       ) {
 
@@ -863,7 +933,11 @@
 
     } else {
 
-      figure.remove();
+      if (figure) {
+
+        figure.remove();
+
+      }
 
       card.classList.add(
         "no-image"
@@ -945,7 +1019,7 @@
           "earlier-news-item";
 
         link.href =
-          "projects.html?id="
+          "research_projects.html?id="
           + encodeURIComponent(
               item.id
             );
@@ -1085,7 +1159,7 @@
         );
 
       moreLink.href =
-        "projects.html?view=archive";
+        "research_projects.html?view=archive";
 
       moreLink.className =
         "text-link";
@@ -1139,7 +1213,7 @@
           "news-archive-item";
 
         link.href =
-          "projects.html?id="
+          "research_projects.html?id="
           + encodeURIComponent(
               item.id
             );
@@ -1285,7 +1359,7 @@
       "text-link";
 
     link.href =
-      "projects.html";
+      "research_projects.html";
 
     link.textContent =
       "← Back to all projects";
@@ -1454,8 +1528,7 @@
         function (project) {
 
           return (
-            project.id
-            === projectId
+            project.id === projectId
           );
 
         }
